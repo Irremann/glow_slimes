@@ -421,7 +421,7 @@ mobs:spawn({
 	nodes = {"default:water_source", "default:river_water_source", "default:sand"},
 	neighbors = {"default:water_flowing","default:water_source"},
 	interval = 30,
-	chance = 25000,
+	chance = 3000,
 	max_height = -5,
 })
 
@@ -437,7 +437,7 @@ mobs:spawn({
 	name = "glow_slimes:pink_slime",
 	nodes = {"default:stone", "default:cobble", "glow_slimes:stone_with_yellow_slime"},
 	interval = 30,
-	chance = 3000,
+	chance = 30000,
 	max_height = -250,
 })
 

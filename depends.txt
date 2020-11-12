@@ -2,3 +2,4 @@ mobs
 default
 currency
 dye
+farming
