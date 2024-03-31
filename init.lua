@@ -421,7 +421,7 @@ mobs:spawn({
 	nodes = {"default:water_source", "default:river_water_source", "default:sand"},
 	neighbors = {"default:water_flowing","default:water_source"},
 	interval = 30,
-	chance = 3000,
+	chance = 25000,
 	max_height = -5,
 })
 
@@ -437,7 +437,7 @@ mobs:spawn({
 	name = "glow_slimes:pink_slime",
 	nodes = {"default:stone", "default:cobble", "glow_slimes:stone_with_yellow_slime"},
 	interval = 30,
-	chance = 30000,
+	chance = 3000,
 	max_height = -250,
 })
 
@@ -455,4 +455,92 @@ mobs:spawn({
 	interval = 30,
 	chance = 6000,
 	max_height = -2000,
+})
+
+--grass
+
+minetest.register_node("glow_slimes:yellow_grass", {
+	description = "Yellow Grass",
+	drawtype = "plantlike",
+	waving = 1,
+	tiles = {"slime_yellow_grass.png"},
+	inventory_image = "slime_yellow_grass.png",
+	wield_image = "slime_yellow_grass.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy = 3, flora = 1, attached_node = 1, flammable = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -5 / 16, 6 / 16},
+	},
+	on_use = minetest.item_eat(1),
+})
+
+minetest.register_abm({
+	nodenames = {"glow_slimes:stone_with_yellow_slime"},
+	interval = 50,
+	chance = 70,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+        local pos = {x = pos.x, y = pos.y + 1, z = pos.z}
+        local name = minetest.get_node(pos).name
+        if minetest.get_node(pos).name == "air" then
+			minetest.set_node(pos, {name = "glow_slimes:yellow_grass"})
+		end
+    end
+})
+
+minetest.register_node("glow_slimes:green_grass", {
+	description = "Green Grass",
+	drawtype = "plantlike",
+	waving = 1,
+	tiles = {"slime_green_grass.png"},
+	inventory_image = "slime_green_grass.png",
+	wield_image = "slime_green_grass.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy = 3, flora = 1, attached_node = 1, flammable = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -5 / 16, 6 / 16},
+	},
+	on_use = minetest.item_eat(1),
+})
+
+minetest.register_abm({
+	nodenames = {"glow_slimes:stone_with_green_slime"},
+	interval = 50,
+	chance = 70,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+        local pos = {x = pos.x, y = pos.y + 1, z = pos.z}
+        local name = minetest.get_node(pos).name
+        if minetest.get_node(pos).name == "air" then
+			minetest.set_node(pos, {name = "glow_slimes:green_grass"})
+		end
+    end
+})
+
+minetest.register_craft({
+	output = "farming:flour",
+	recipe = {
+		{"glow_slimes:yellow_grass", "glow_slimes:yellow_grass", "glow_slimes:yellow_grass"},
+		{"glow_slimes:yellow_grass", "glow_slimes:yellow_grass", "glow_slimes:yellow_grass"},
+		{"glow_slimes:yellow_grass", "farming:mortar_pestle", ""}
+	},
+	replacements = {{"group:food_mortar_pestle", "farming:mortar_pestle"}}
+})
+
+minetest.register_craft({
+	output = "farming:flour",
+	recipe = {
+		{"glow_slimes:green_grass", "glow_slimes:green_grass", "glow_slimes:green_grass"},
+		{"glow_slimes:green_grass", "glow_slimes:green_grass", "glow_slimes:green_grass"},
+		{"glow_slimes:green_grass", "farming:mortar_pestle", ""}
+	},
+	replacements = {{"group:food_mortar_pestle", "farming:mortar_pestle"}}
 })
